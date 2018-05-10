@@ -30,27 +30,19 @@ nnoremap <script> <silent> <buffer> <localleader>sdd :%call todo#txt#sort_by_due
 vnoremap <script> <silent> <buffer> <localleader>sdd :call todo#txt#sort_by_due_date()<CR>
 
 " Change priority {{{2
-nnoremap <script> <silent> <buffer> <localleader>j :call todo#txt#prioritize_increase()<CR>
-vnoremap <script> <silent> <buffer> <localleader>j :call todo#txt#prioritize_increase()<CR>
-nnoremap <script> <silent> <buffer> <localleader>k :call todo#txt#prioritize_decrease()<CR>
-vnoremap <script> <silent> <buffer> <localleader>k :call todo#txt#prioritize_decrease()<CR>
-nnoremap <script> <silent> <buffer> <localleader>a :call todo#txt#prioritize_add('A')<CR>
-vnoremap <script> <silent> <buffer> <localleader>a :call todo#txt#prioritize_add('A')<CR>
-nnoremap <script> <silent> <buffer> <localleader>b :call todo#txt#prioritize_add('B')<CR>
-vnoremap <script> <silent> <buffer> <localleader>b :call todo#txt#prioritize_add('B')<CR>
-nnoremap <script> <silent> <buffer> <localleader>c :call todo#txt#prioritize_add('C')<CR>
-vnoremap <script> <silent> <buffer> <localleader>c :call todo#txt#prioritize_add('C')<CR>
-nnoremap <script> <silent> <buffer> <localleader>d :call todo#txt#prioritize_add('D')<CR>
-vnoremap <script> <silent> <buffer> <localleader>d :call todo#txt#prioritize_add('D')<CR>
-nnoremap <script> <silent> <buffer> <localleader>f :call todo#txt#prioritize_add('F')<CR>
-vnoremap <script> <silent> <buffer> <localleader>f :call todo#txt#prioritize_add('F')<CR>
-nnoremap <script> <silent> <buffer> <localleader>p :call todo#txt#prioritize_add('P')<CR>
-vnoremap <script> <silent> <buffer> <localleader>p :call todo#txt#prioritize_add('P')<CR>
+nnoremap <script> <silent> <buffer> pj :call todo#txt#prioritize_increase()<CR>
+nnoremap <script> <silent> <buffer> pk :call todo#txt#prioritize_decrease()<CR>
+nnoremap <script> <silent> <buffer> pa :call todo#txt#prioritize_add('A')<CR>
+nnoremap <script> <silent> <buffer> pb :call todo#txt#prioritize_add('B')<CR>
+nnoremap <script> <silent> <buffer> pc :call todo#txt#prioritize_add('C')<CR>
+nnoremap <script> <silent> <buffer> pd :call todo#txt#prioritize_add('D')<CR>
+nnoremap <script> <silent> <buffer> pf :call todo#txt#prioritize_add('F')<CR>
+nnoremap <script> <silent> <buffer> pp :call todo#txt#prioritize_add('P')<CR>
 
 " Insert date {{{2
 inoremap <script> <silent> <buffer> date<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
-nnoremap <script> <silent> <buffer> <localleader>dd :call todo#txt#replace_date()<CR>
-vnoremap <script> <silent> <buffer> <localleader>dd :call todo#txt#replace_date()<CR>
+nnoremap <script> <silent> <buffer> <localleader>dt :call todo#txt#replace_date()<CR>
+nnoremap <script> <silent> <buffer> <localleader>dd :call todo#txt#replace_due_date()<CR>
 
 " Mark done {{{2
 nnoremap <script> <silent> <buffer> <localleader>x :call todo#txt#mark_as_done()<CR>
@@ -95,5 +87,5 @@ let &cpo = s:save_cpo
 " Modeline {{{1
 " vim: ts=8 sw=4 sts=4 et foldenable foldmethod=marker foldcolumn=1
 if (has("gui_running")) 
-	set guifont=Ubuntu\ Mono\ 28
+	set guifont=Ubuntu\ Mono\ 22
 endif

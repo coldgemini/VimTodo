@@ -9,9 +9,12 @@ if exists("b:current_syntax")
     finish
 endif
 
-syntax  keyword TodoTask	make add fix build
+"syntax  keyword TodoTask	make add fix build
 
+syntax  match  TodoComment	'#.*$'
+syntax  match  TodoDetail	'\t\d\{1,2\}\.'
 syntax  match  TodoDone       '^[xX]\s.\+$'
+syntax  match  TodoDetailDone       '\t[xX]\s.\+$'
 syntax  match  TodoPriorityA  '^([aA])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
 syntax  match  TodoPriorityB  '^([bB])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
 syntax  match  TodoPriorityC  '^([cC])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
@@ -40,22 +43,27 @@ syntax  match  TodoPriorityY  '^([yY])\s.\+$'             contains=TodoDate,Todo
 syntax  match  TodoPriorityZ  '^([zZ])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
 
 syntax  match  TodoDate       '\d\{2,4\}-\d\{2\}-\d\{2\}' contains=NONE
+syntax  match  TodoDueDate       'D\d\{2,4\}-\d\{2\}-\d\{2\}' contains=NONE
 syntax  match  TodoProject    '\(^\|\W\)+[^[:blank:]]\+'  contains=NONE
 syntax  match  TodoContext    '\(^\|\W\)@[^[:blank:]]\+'  contains=NONE
 
 " Other priority colours might be defined by the user
+highlight  default  link  TodoComment       Comment
+highlight  default  link  TodoDetail       Comment
 highlight  default  link  TodoDone       Comment
+highlight  default  link  TodoDetailDone       Comment
 highlight  default  link  TodoPriorityA  Constant
 highlight  default  link  TodoPriorityB  Statement
 highlight  default  link  TodoPriorityC  Identifier
 highlight  default  link  TodoPriorityD  String
-highlight  default  link  TodoPriorityF  Operator
+highlight  default  link  TodoPriorityF  TodoFocus
 highlight  default  link  TodoPriorityP  Special
 highlight  default  link  TodoDate       PreProc
-highlight  default  link  TodoProject    Special
-highlight  default  link  TodoContext    Special
+highlight  default  link  TodoDueDate    TodoDue
+highlight  default  link  TodoProject    TodoProject
+highlight  default  link  TodoContext    TodoContext
 
-highlight  default  link  TodoTask		keyword
+"highlight  default  link  TodoTask		keyword
 
 if exists('g:todo_load_python') && g:todo_load_python
     if has('python')
