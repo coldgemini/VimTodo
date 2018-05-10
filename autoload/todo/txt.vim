@@ -94,32 +94,63 @@ function! todo#txt#remove_completed()
 endfunction
 
 function! todo#txt#sort_by_context() range
-    execute a:firstline . "," . a:lastline . "sort /\\(^\\| \\)\\zs@[^[:blank:]]\\+/ r"
+    "execute a:firstline . "," . a:lastline . "sort /\\(^\\| \\)\\zs@[^[:blank:]]\\+/ r"
+    let l:context_regex = "\\(^\\| \\)\\zs@[^[:blank:]]\\+"
+    silent execute a:lastline ."s/".'$'."/". g:end_pointer ."/"
+    " Replace all newlines with our placeholder
+    silent execute a:firstline . "," . a:lastline ."s/".'\n\t'."/". g:newline_place_holder."/g"
+    let tmp_last_line = search(g:end_pointer)
+    "silent execute a:firstline . "," . tmp_last_line . "sort /" . l:date_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "sort /" . l:context_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "g!/" . l:context_regex . "/m" . tmp_last_line
+    silent execute a:firstline . "," . tmp_last_line ."s/". g:newline_place_holder ."/". "\r\t" ."/g"
+    let tmp_last_line2 = search(g:end_pointer)
+    silent execute tmp_last_line2 ."s/". g:end_pointer ."/" . "/g"
 endfunction
 
 function! todo#txt#sort_by_project() range
-    execute a:firstline . "," . a:lastline . "sort /\\(^\\| \\)\\zs+[^[:blank:]]\\+/ r"
+    "execute a:firstline . "," . a:lastline . "sort /\\(^\\| \\)\\zs+[^[:blank:]]\\+/ r"
+    let l:project_regex = "\\(^\\| \\)\\zs+[^[:blank:]]\\+"
+    silent execute a:lastline ."s/".'$'."/". g:end_pointer ."/"
+    " Replace all newlines with our placeholder
+    silent execute a:firstline . "," . a:lastline ."s/".'\n\t'."/". g:newline_place_holder."/g"
+    let tmp_last_line = search(g:end_pointer)
+    "silent execute a:firstline . "," . tmp_last_line . "sort /" . l:date_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "sort /" . l:project_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "g!/" . l:project_regex . "/m" . tmp_last_line
+    silent execute a:firstline . "," . tmp_last_line ."s/". g:newline_place_holder ."/". "\r\t" ."/g"
+    let tmp_last_line2 = search(g:end_pointer)
+    silent execute tmp_last_line2 ."s/". g:end_pointer ."/" . "/g"
 endfunction
 
 function! todo#txt#sort_by_date() range
     let l:date_regex = "\\d\\{2,4\\}-\\d\\{2\\}-\\d\\{2\\}"
-    execute a:firstline . "," . a:lastline . "sort /" . l:date_regex . "/ r"
-    execute a:firstline . "," . a:lastline . "g!/" . l:date_regex . "/m" . a:lastline
+    "execute a:firstline . "," . a:lastline . "sort /" . l:date_regex . "/ r"
+    "execute a:firstline . "," . a:lastline . "g!/" . l:date_regex . "/m" . a:lastline
+    silent execute a:lastline ."s/".'$'."/". g:end_pointer ."/"
+    " Replace all newlines with our placeholder
+    silent execute a:firstline . "," . a:lastline ."s/".'\n\t'."/". g:newline_place_holder."/g"
+    let tmp_last_line = search(g:end_pointer)
+    silent execute a:firstline . "," . tmp_last_line . "sort /" . l:date_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "g!/" . l:date_regex . "/m" . tmp_last_line
+    silent execute a:firstline . "," . tmp_last_line ."s/". g:newline_place_holder ."/". "\r\t" ."/g"
+    let tmp_last_line2 = search(g:end_pointer)
+    silent execute tmp_last_line2 ."s/". g:end_pointer ."/" . "/g"
 endfunction
 
 function! todo#txt#sort_by_due_date() range
     "let l:date_regex = "due:\\d\\{2,4\\}-\\d\\{2\\}-\\d\\{2\\}"
     let l:date_regex = "D\\d\\{2,4\\}-\\d\\{2\\}-\\d\\{2\\}"
 
-    execute a:lastline ."s/".'$'."/". g:end_pointer ."/"
+    silent execute a:lastline ."s/".'$'."/". g:end_pointer ."/"
     " Replace all newlines with our placeholder
-    execute a:firstline . "," . a:lastline ."s/".'\n\t'."/". g:newline_place_holder."/g"
+    silent execute a:firstline . "," . a:lastline ."s/".'\n\t'."/". g:newline_place_holder."/g"
     let tmp_last_line = search(g:end_pointer)
-    execute a:firstline . "," . tmp_last_line . "sort /" . l:date_regex . "/ r"
-    execute a:firstline . "," . tmp_last_line . "g!/" . l:date_regex . "/m" . tmp_last_line
-    execute a:firstline . "," . tmp_last_line ."s/". g:newline_place_holder ."/". "\r\t" ."/g"
+    silent execute a:firstline . "," . tmp_last_line . "sort /" . l:date_regex . "/ r"
+    silent execute a:firstline . "," . tmp_last_line . "g!/" . l:date_regex . "/m" . tmp_last_line
+    silent execute a:firstline . "," . tmp_last_line ."s/". g:newline_place_holder ."/". "\r\t" ."/g"
     let tmp_last_line2 = search(g:end_pointer)
-    execute tmp_last_line2 ."s/". g:end_pointer ."/" . "/g"
+    silent execute tmp_last_line2 ."s/". g:end_pointer ."/" . "/g"
 endfunction
 
 " Increment and Decrement The Priority
