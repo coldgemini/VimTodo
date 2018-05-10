@@ -9,6 +9,8 @@ if exists("b:current_syntax")
     finish
 endif
 
+syntax  keyword TodoTask	make add fix build
+
 syntax  match  TodoDone       '^[xX]\s.\+$'
 syntax  match  TodoPriorityA  '^([aA])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
 syntax  match  TodoPriorityB  '^([bB])\s.\+$'             contains=TodoDate,TodoProject,TodoContext,OverDueDate
@@ -52,6 +54,8 @@ highlight  default  link  TodoPriorityP  Special
 highlight  default  link  TodoDate       PreProc
 highlight  default  link  TodoProject    Special
 highlight  default  link  TodoContext    Special
+
+highlight  default  link  TodoTask		keyword
 
 if exists('g:todo_load_python') && g:todo_load_python
     if has('python')
