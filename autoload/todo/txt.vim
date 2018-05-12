@@ -52,10 +52,38 @@ function! todo#txt#replace_due_date()
     execute 's/^\(([a-zA-Z]) \)\?\(D\d\{2,4\}-\d\{2\}-\d\{2\} \)\?/\1D' . s:get_current_date() . ' /'
 endfunction
 
-function! todo#txt#mark_as_done()
+function! todo#txt#mark_list_as_done()
+    let l:linenum = line(".")
     call s:remove_priority()
     call todo#txt#prepend_date()
-    execute 'normal! Ix '
+    silent execute 'normal! Ix '
+    "if getline(".") =~ 
+    let l:linenum = l:linenum + 1
+    let current_line = getline(l:linenum)
+    while current_line =~ '^\t'
+        "execute 'normal! Ix '
+        silent execute l:linenum . "s/^\t/\tx /"
+        "silent execute 'normal!' . l:linenum . ' Ix '
+        let l:linenum = l:linenum + 1
+        let current_line = getline(l:linenum)
+    endwhile
+    "if current_line =~ '^\t'
+        "execute 's/^/hahaha/'
+    "endif
+endfunction
+
+function! todo#txt#mark_as_done()
+    let l:linenum = line(".")
+    let current_line = getline(l:linenum)
+    let l:linenum = l:linenum + 1
+    let next_line = getline(l:linenum)
+    if next_line =~ '^\t' && current_line =~ '^\w'
+        call todo#txt#mark_list_as_done()
+    else
+        call s:remove_priority()
+        call todo#txt#prepend_date()
+        execute 'normal! Ix '
+    endif
 endfunction
 
 function! todo#txt#mark_all_as_done()
