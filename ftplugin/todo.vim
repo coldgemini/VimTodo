@@ -18,8 +18,8 @@ setlocal wrapmargin=0
 
 " Mappings {{{1
 " Sort tasks {{{2
-nnoremap <script> <silent> <buffer> <localleader>s :%sort<CR>
-vnoremap <script> <silent> <buffer> <localleader>s :sort<CR>
+"nnoremap <script> <silent> <buffer> <localleader>s :%sort<CR>
+"vnoremap <script> <silent> <buffer> <localleader>s :sort<CR>
 nnoremap <script> <silent> <buffer> <localleader>s@ :%call todo#txt#sort_by_context()<CR>
 vnoremap <script> <silent> <buffer> <localleader>s@ :call todo#txt#sort_by_context()<CR>
 nnoremap <script> <silent> <buffer> <localleader>s+ :%call todo#txt#sort_by_project()<CR>
